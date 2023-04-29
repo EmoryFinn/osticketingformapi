@@ -1,0 +1,36 @@
+$(document).ready(function() {
+    $('#osticket-form').submit(function(e) {
+        e.preventDefault();
+ 
+        // Get form data
+        var formData = {
+            name: $('#name').val(),
+            email: $('#email').val(),
+            subject: $('#subject').val(),
+            message: $('#message').val(),
+            topicId: $('#topicId').val()
+        };
+
+        // Add your osTicket API URL and API key here
+        var osticketAPI = 'https://tickets.sotbenterprises.com/api/tickets.json';
+        var apiKey = '563D7D71659C57110451003C7CC87FD8';
+
+        $.ajax({
+            url: osticketAPI,
+            type: 'POST',
+            data: JSON.stringify(formData),
+            dataType: 'json',
+            headers: {
+                'X-API-Key': apiKey
+            },
+            success: function(data) {
+                alert('Ticket submitted successfully');
+            },
+            error: function(xhr, status, error) {
+                alert('Error submitting ticket: ' + error);
+            }
+        });
+    });
+});
+
+
